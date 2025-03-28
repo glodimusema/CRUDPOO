@@ -10,6 +10,7 @@ namespace CRUDPOO.Classes
     {
         int id;
         string nom_categorie;
+        //Data
 
         public int Id { get => id; set => id = value; }
         public string Nom_categorie { get => nom_categorie; set => nom_categorie = value; }
