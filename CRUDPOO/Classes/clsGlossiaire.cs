@@ -176,11 +176,37 @@ namespace CRUDPOO.Classes
             }
             return dst;
         }
-    
+
+
+        public DataSet get_Report_Two(string nomTable, string nomchamp, string val1,string nomchamp2,string val2)
+        {
+            DataSet dst;
+            try
+            {
+                InnitialiseConnexion();
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd = new SqlCommand("SELECT * FROM " + nomTable + " WHERE " + nomchamp + " = @val1 and " + nomchamp2 + " = @val2", con);
+                setParameter(cmd, "@val1", DbType.String, 30, val1);
+                setParameter(cmd, "@val2", DbType.String, 30, val2);
+                dt = new SqlDataAdapter(cmd);
+                dst = new DataSet();
+                dt.Fill(dst, nomTable);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                dt.Dispose(); con.Close();
+            }
+            return dst;
+        }
 
 
 
-    public DataTable loadData(string nomTable)
+
+        public DataTable loadData(string nomTable)
         {
            InnitialiseConnexion();
             if (!con.State.ToString().ToLower().Equals("open")) con.Open();
